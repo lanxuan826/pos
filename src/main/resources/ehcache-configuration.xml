@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="hibernateCache">
+
+	<diskStore path="java.io.tmpdir/dpos" />
+
+	<!-- DefaultCache setting. -->
+	<defaultCache maxElementsInMemory="80000" memoryStoreEvictionPolicy="LRU" eternal="false"
+		timeToIdleSeconds="300" timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false" />
+
+	<!-- Special objects setting. 
+	<cache name="com.e4s.pub.entity.account.User" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.User.roleList" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.Role" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.Role.authorityList" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.Authority" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.Resource" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="com.e4s.pub.entity.account.Resource.authorityList" maxElementsInMemory="10000"
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	-->
+</ehcache>
