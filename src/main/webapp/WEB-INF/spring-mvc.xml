@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+    <!-- 注解扫描包 -->
+    <!-- <context:component-scan base-package="com.xuxiao.controller" /> -->
+    <!-- <context:component-scan /> -->
+    <!-- 扫描指定的包中的类上的注解，常用的注解有： -->
+    <!-- @Controller 声明Action组件 -->
+    <!-- @Service 声明Service组件 @Service("xxxService") -->
+    <!-- @Repository 声明Dao组件 -->
+    <!-- @Component 泛指组件, 当不好归类时. -->
+    <!-- @RequestMapping("/menu") 请求映射 -->
+    <!-- @Resource 用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") -->
+    <!-- @Autowired 用于注入，(spring提供的) 默认按类型装配 -->
+    <!-- @Transactional( rollbackFor={Exception.class}) 事务管理 -->
+    <!-- @ResponseBody将内容或对象作为 HTTP 响应正文返回，并调用适合HttpMessageConverter的Adapter转换对象，写入输出流 -->
+    <!-- @Scope("prototype") 设定bean的作用域 -->
+    <!-- 开启MVC注解,表示SpringMVC支持注解功能 做了很多事情，不包括添加自己定义的拦截器 -->
+	<!--     <mvc:annotation-driven /> -->
+	
+	 <!-- 自动扫描 且只扫描@Controller -->
+	<context:component-scan base-package="com.lanxuan" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan> 
+	
+	<!-- 使用CGLib动态代理技术织入增强 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+	
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<mvc:default-servlet-handler/>
+	
+	<!-- 定义JSP文件的位置 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/WEB-INF/views/"></property>
+			<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 定义无Controller的path->view直接映射  /system/welcome -->
+	<mvc:view-controller path="/" view-name="redirect:/system/welcome"/>
+   
+   <!-- 定义文件上传 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   		<property name="defaultEncoding" value="UTF-8"></property>
+   		 <property name="maxUploadSize" value="102400000"></property>
+   	</bean>
+   
+   <!-- Controller中用的属性配置 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />  
+	    <property name="ignoreResourceNotFound" value="true" />  
+	    <property name="locations">  
+	    	<list>  
+	    		<value>classpath*:application.properties</value>  
+	    	</list>  
+	    </property>  
+	</bean>  
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+				<mvc:mapping path="/system/**"/>
+				<bean class="com.lanxuan.interceptor.MyInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+   	<!-- 国际化的消息资源文件 -->   
+ <!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">   
+        <property name="basenames">   
+            <list>   
+                <value>classpath:validationMessages</value>
+            </list>   
+        </property>   
+        <property name="defaultEncoding" value="UTF-8"/>   
+        <property name="cacheSeconds" value="60"/>   
+    </bean>  -->
+    
+    
+    <!-- 拦截器 -->
+    <!-- <mvc:interceptors> <bean class="com.xuxiao.inteceptor" /> </mvc:interceptors> -->
+
+    <!-- 方案一 （二选一）表示不对静态资源如CSS、JS、HTML等进行拦截 -->
+    <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源,使用默认的servlet来响应请求 -->
+    <!-- <mvc:default-servlet-handler /> -->
+
+    <!-- 方案二 （二选一） 静态资源映射 -->
+    <!-- <mvc:resources mapping="/images/**" location="/mainView/images/" />
+    <mvc:resources mapping="/css/**" location="/mainView/css/" />
+    <mvc:resources mapping="/js/**" location="/mainView/js/" />
+    <mvc:resources mapping="/html/**" location="/mainView/html/" /> -->
+
+</beans>  
