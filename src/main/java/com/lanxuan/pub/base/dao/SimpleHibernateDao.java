@@ -7,7 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-import com.lanxuan.util.ReflectionUtils;
+import com.lanxuan.pub.utils.ReflectionUtils;
+
 
 public class SimpleHibernateDao<T, PK extends Serializable> {
 	

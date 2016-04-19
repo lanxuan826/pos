@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration 
+  PUBLIC "-//mybatis.org//DTD SQL MAP Config 3.1//EN" 
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+
+<configuration> 
+	<settings>
+		<!-- 设置空值字段可以对应查询出来 -->
+      	<setting name="callSettersOnNulls" value="true"/>
+  	</settings>
+	<plugins>
+		<!-- 指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect-->
+		<plugin interceptor="com.lanxuan.pub.mybatis.PaginationInterceptor">
+			<property name="dialectClass" value="com.lanxuan.pub.dialect.MySQLDialect"/>
+		</plugin>
+	</plugins>
+</configuration> 

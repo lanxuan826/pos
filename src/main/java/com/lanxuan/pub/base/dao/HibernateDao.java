@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.SessionFactory;
 
-import com.lanxuan.entity.User;
+import com.lanxuan.pub.entity.system.User;
 
 public  class HibernateDao<T, PK extends Serializable> extends SimpleHibernateDao {
 

@@ -1,4 +1,4 @@
-package com.lanxuan.entity;
+package com.lanxuan.pub.entity.system;
 
 import java.io.Serializable;
 
@@ -8,7 +8,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.lanxuan.pub.base.BaseEntity;
+import com.lanxuan.pub.base.entity.BaseEntity;
+
 @Entity
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="T_POS_DB_USER")

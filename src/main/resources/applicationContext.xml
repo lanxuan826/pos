@@ -45,7 +45,7 @@
 		</property>
 		<property name="packagesToScan">
 			<list>
-				<value>com.lanxuan.entity</value>
+				<value>com.lanxuan.pub.entity</value>
 			</list>
 		</property>
 	</bean>
@@ -88,6 +88,27 @@
 			<ref local="dataSource" />
 		</property>
 	</bean>
+	
+	<!-- Mybatis配置 -->
+	<bean id ="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation">
+			<value>classpath:/mybatisConfig.xml</value>
+		</property>
+		
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 自动扫描该目录下实体类 -->
+		<property name="typeAliasesPackage" value="com.lanxuan.pub.entity" />
+		 <!-- 显式指定Mapper文件位置 -->
+		<property name="mapperLocations" value="classpath*:/mybatis/*/*Mapper.xml" />
+	</bean>
+	
+	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.lanxuan" />
+		<property name="annotationClass" value=" com.lanxuan.pub.base.repository.mybatis.MyBatisRepository"/>
+	</bean>
+	
+	
 	
 	<!-- 数据源配置， 使用DBCP数据库连接池 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.lanxuan.dao.UserMybatisDao">
+
+	<resultMap id="UserResult" type="User">
+		<id property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="password" column="PASSWORD" />
+	</resultMap>
+
+ <select id="queryForUserInfo" parameterType="Map" resultMap="UserResult">
+		SELECT U.ID, U.USER_NAME, U.PASSWORD
+		FROM T_POS_DB_USER U
+		WHERE U.ID IS NOT NULL
+		<if test="parameter != null">  
+        	AND U.${property} = #{parameter}
+        </if>
+	</select>
+</mapper>
